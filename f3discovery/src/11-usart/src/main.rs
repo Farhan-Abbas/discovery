@@ -10,7 +10,9 @@ fn main() -> ! {
     let (usart1, _mono_timer, _itm) = aux11::init();
 
     loop {
+        // wait until it's safe to write to TDR
         while usart1.isr.read().txe().bit_is_clear() {}
+        // write the byte to TDR
         usart1.tdr.write(|w| w.tdr().bits(u16::from('a' as u8)));
         
         // Wait until there's data available
