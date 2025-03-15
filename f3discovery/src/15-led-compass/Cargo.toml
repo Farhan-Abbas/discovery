@@ -1,9 +1,15 @@
 [package]
 authors = ["Jorge Aparicio <jorge@japaric.io>"]
 edition = "2018"
-name = "led-compass"
+name = "aux15"
 version = "0.1.0"
 
 [dependencies]
-m = "0.1.1"
-aux15 = { path = "auxiliary" }
+cortex-m = "=0.5.6"
+cortex-m-rt = "0.6.3"
+panic-itm = "=0.4.0"
+lsm303agr = "0.1"
+
+[dependencies.f3]
+features = ["rt"]
+version = "0.6.1"

@@ -41,8 +41,6 @@ fn main() -> ! {
     loop {
         buffer.clear();
 
-        let mut string = "";
-
         // TODO Receive a user request. Each user request ends with ENTER
         // NOTE `buffer.push` returns a `Result`. Handle the error by responding
         // with an error message.
@@ -54,17 +52,17 @@ fn main() -> ! {
             while usart1.isr.read().rxne().bit_is_clear() {}
             // Retrieve the data
             let _byte = usart1.rdr.read().rdr().bits() as u8;
-            if _byte == b'\n' {
+            if _byte == '\n' {
                 break;
             }
             // push the byte into the buffer
-            string.push(_byte);
+            buffer.push(_byte);
         }
 
         // reverse the string
 
         // return the reversed string
-        for byte in string.chars() {
+        for byte in &buffer {
             // wait until it's safe to write to TDR
             while usart1.isr.read().txe().bit_is_clear() {}
             usart1.tdr.write(|w| w.tdr().bits(u8::from(byte)));
