@@ -1,21 +1,19 @@
-#![deny(unsafe_code)]
 #![no_main]
 #![no_std]
 
-#[allow(unused_imports)]
-use aux15::{entry, iprint, iprintln, prelude::*, UnscaledMeasurement};
-use aux15::Direction;
+use compass_lsm303agr::config::initialization::{
+    entry, init, iprintln, switch_hal::OutputSwitch, Direction,
+};
+use stm32f3_discovery::stm32f3xx_hal::prelude::*;
 
 #[entry]
 fn main() -> ! {
-    let (mut leds, mut lsm303agr, mut delay, mut itm) = aux15::init();
+    let (leds, mut lsm303agr, mut delay, mut itm) = init();
+    let mut stm_leds = leds.into_array();
 
     loop {
-        let status = lsm303agr.mag_status().unwrap();
-        if status.xyz_new_data {
-            let data = lsm303agr.mag_data().unwrap();
-            iprintln!(&mut itm.stim[0], "{:?}", data);
-        }
+
+        iprintln!(&mut itm.stim[0], "{:?}", lsm303agr.mag_data().unwrap());
 
         delay.delay_ms(1_000_u16);
     }

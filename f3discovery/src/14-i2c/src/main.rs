@@ -11,7 +11,6 @@ const MAGNETOMETER: u16 = 0b0011_1100;
 
 // Addresses of the magnetometer's registers
 const WHO_AM_I_M: u8 = 0x4F;
-
 const CFG_REG_A_M: u8 = 0x60;
 const OUTX_L_REG_M: u8 = 0x068;
 
