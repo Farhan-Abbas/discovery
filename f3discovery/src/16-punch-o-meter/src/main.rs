@@ -47,7 +47,7 @@ fn main() -> ! {
         //9.26seconds of delay--
         asm::delay(50_000_000)
     }
-    /*
+    
     // uncomment this to build the puncho-o-meter.
     // CODE FOR Punch-o-meter....
     let measurement_time = mono_timer.frequency().0; // 1 second in ticks
@@ -85,5 +85,5 @@ fn main() -> ! {
         }
 
         delay.delay_ms(50_u8);
-    }*/
+    }
 }
